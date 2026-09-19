@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import '../data/course_data.dart';
-import '../widgets/category_chip.dart';
+import 'package:tarea_eventosuni/widgets/event_card.dart';
+import 'package:tarea_eventosuni/data/event_data.dart';
+import 'package:tarea_eventosuni/widgets/category_chip.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -12,10 +13,19 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   String _categoriaSeleccionada = 'Todos';
 
-  List<Map<String, String>> _obtenerCursos() {
+  List<Map<String, String>> _listEventos = eventos;
+
+  List<Map<String, String>> _obtenerEventos() {
     final List<Map<String, String>> res = [];
-    for (final curso in cursos) {
-      if (curso['categoria'] == _categoriaSeleccionada) res.add(curso);
+
+    if (_categoriaSeleccionada == "Todos") {
+      for (final evento in eventos) {
+        res.add(evento);
+      }
+    } else {
+      for (final evento in eventos) {
+        if (evento['categoria'] == _categoriaSeleccionada) res.add(evento);
+      }
     }
 
     return res;
@@ -23,11 +33,27 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    final Orientation orientation = MediaQuery.of(context).orientation;
+    final Size size = MediaQuery.of(context).size;
+
+    int countItem = 1;
+    double eventHeight = 400;
+    double space = size.width;
+
+    if (orientation == Orientation.landscape || space > 800.0) {
+      countItem = 2;
+      eventHeight = 250;
+    }
+
     return Scaffold(
-      appBar: AppBar(title: const Text('Campus cursos')),
+      appBar: AppBar(
+        title: Text(
+          'Eventos Universitarios',
+          style: Theme.of(context).textTheme.headlineLarge,
+        )
+      ),
       body: ListView(
         padding: const EdgeInsets.all(16),
-
         children: [
           Text(
             'Hola estudiante',
@@ -44,7 +70,7 @@ class _HomePageState extends State<HomePage> {
           const SizedBox(height: 22),
 
           AspectRatio(
-            aspectRatio: 16 / 7,
+            aspectRatio: 16 / 1,
             child: ClipRRect(
               borderRadius: BorderRadius.circular(20),
               child: Stack(
@@ -116,10 +142,40 @@ class _HomePageState extends State<HomePage> {
                     setState(() {
                       _categoriaSeleccionada = categoria;
                     });
+
+                    _listEventos = _obtenerEventos();
                   },
                 );
               },
             ),
+          ),
+
+          const SizedBox(height: 12),
+
+          GridView.builder(
+            shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
+            itemCount: _listEventos.length,
+            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: countItem,
+              mainAxisExtent: eventHeight,
+              crossAxisSpacing: 8.0,
+              mainAxisSpacing: 8.0,
+            ),
+
+            itemBuilder: (context, index) {
+              final evento = _listEventos[index];
+              
+              return EventCard(
+                titulo: evento['titulo'] as String,
+                categoria: evento['categoria'] as String,
+                fecha: evento['fecha'] as String,
+                hora: evento['hora'] as String,
+                lugar: evento['lugar'] as String,
+                cupo: evento['cupo'] as String,
+                imagen: evento['imagen'] as String,
+              );
+            },
           ),
         ],
       ),

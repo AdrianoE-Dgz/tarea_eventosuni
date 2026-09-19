@@ -1,0 +1,176 @@
+import 'package:flutter/material.dart';
+
+class EventCard extends StatelessWidget {
+  final String titulo;
+  final String categoria;
+  final String fecha;
+  final String hora;
+  final String lugar;
+  final String cupo;
+  final String imagen;
+
+  const EventCard({
+    super.key,
+    required this.titulo,
+    required this.categoria,
+    required this.fecha,
+    required this.hora,
+    required this.lugar,
+    required this.cupo,
+    required this.imagen,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      child: Container(
+        padding: EdgeInsets.all(25),
+        child: LayoutBuilder(
+          builder: (BuildContext context, BoxConstraints constraints) {
+            if (constraints.maxWidth > 400) {
+              // Large screen layout
+              return DesktopEventCard(
+                titulo: titulo,
+                categoria: categoria,
+                fecha: fecha,
+                hora: hora,
+                lugar: lugar,
+                cupo: cupo,
+                imagen: imagen,
+              );
+            } else {
+              // Small screen layout
+              return MobileEventCard(
+                titulo: titulo,
+                categoria: categoria,
+                fecha: fecha,
+                hora: hora,
+                lugar: lugar,
+                cupo: cupo,
+                imagen: imagen,
+              );
+            }
+          },
+        ),
+      ),
+    );
+  }
+}
+
+class MobileEventCard extends StatelessWidget {
+  final String titulo;
+  final String categoria;
+  final String fecha;
+  final String hora;
+  final String lugar;
+  final String cupo;
+  final String imagen;
+
+  const MobileEventCard({
+    super.key,
+    required this.titulo,
+    required this.categoria,
+    required this.fecha,
+    required this.hora,
+    required this.lugar,
+    required this.cupo,
+    required this.imagen,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Text(titulo),
+        Text(categoria),
+        Text("Fecha de Incio: $fecha"),
+        Text("Hora de inicio: $hora"),
+        Text("Dirección: $lugar"),
+        Text("Cupo total: $cupo"),
+        SizedBox(height: 15),
+        Image.network(imagen),
+      ],
+    );
+  }
+}
+
+class DesktopEventCard extends StatelessWidget {
+  final String titulo;
+  final String categoria;
+  final String fecha;
+  final String hora;
+  final String lugar;
+  final String cupo;
+  final String imagen;
+
+  const DesktopEventCard({
+    super.key,
+    required this.titulo,
+    required this.categoria,
+    required this.fecha,
+    required this.hora,
+    required this.lugar,
+    required this.cupo,
+    required this.imagen,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final Size size = MediaQuery.of(context).size;
+
+    double width = size.width;
+
+    return Row(
+      children: [
+        Expanded(
+          flex: 1,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                titulo,
+                style: TextStyle(fontSize: 25, fontWeight: FontWeight(1000)),
+              ),
+              Text(categoria),
+              Text("Fecha de Incio: $fecha"),
+              Text("Hora de inicio: $hora"),
+              Text("Dirección: $lugar"),
+              Text("Cupo total: $cupo"),
+              Expanded(
+                flex: 1,
+                child: SizedBox(height: 0),
+              ),
+              ElevatedButton(
+                  onPressed: () {
+                    final snackBar = SnackBar(
+                      content: Text('Se ha registrado al evento $titulo!'),
+                      backgroundColor: (const Color.fromARGB(116, 8, 4, 71)),
+                      action: SnackBarAction(
+                        label: 'De acuerdo',
+                        onPressed: () {
+                        },
+                      ),
+                    );
+                    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                  },
+                  child: const Text(
+                    'Registrarme',
+                  ),
+                ),
+            ],
+          ),
+        ),
+        Expanded(
+          flex: 2,
+          child: Image.network(
+            imagen,
+            height: double.infinity,
+            width: width,
+            fit: BoxFit.fitWidth,
+          ),
+        ),
+      ],
+    );
+  }
+}

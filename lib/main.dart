@@ -16,7 +16,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
 
-      title: 'Campus cursos',
+      title: 'Eventos | Universidad',
 
       theme: AppTheme.lightTheme,
 

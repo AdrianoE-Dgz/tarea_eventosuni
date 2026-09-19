@@ -22,6 +22,11 @@ class AppTheme {
         titleLarge: TextStyle(
           fontWeight: FontWeight.w700,
         ),
+
+        headlineLarge: TextStyle(
+          fontWeight: FontWeight.w900,
+          fontSize: 25
+        )
       ),
     );
   }
