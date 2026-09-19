@@ -89,6 +89,26 @@ class MobileEventCard extends StatelessWidget {
         Text("Cupo total: $cupo"),
         SizedBox(height: 15),
         Image.network(imagen),
+        SizedBox(height: 15),
+        Center(
+          child: ElevatedButton(
+                  onPressed: () {
+                    final snackBar = SnackBar(
+                      content: Text('Se ha registrado al evento $titulo!'),
+                      backgroundColor: Theme.of(context).colorScheme.onPrimaryContainer,
+                      action: SnackBarAction(
+                        label: 'De acuerdo',
+                        onPressed: () {
+                        },
+                      ),
+                    );
+                    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                  },
+                  child: const Text(
+                    'Registrarme',
+                  ),
+                ),
+        )
       ],
     );
   }
@@ -133,10 +153,42 @@ class DesktopEventCard extends StatelessWidget {
                 style: TextStyle(fontSize: 25, fontWeight: FontWeight(1000)),
               ),
               Text(categoria),
-              Text("Fecha de Incio: $fecha"),
-              Text("Hora de inicio: $hora"),
-              Text("Dirección: $lugar"),
-              Text("Cupo total: $cupo"),
+              RichText(
+                text: TextSpan(
+                  style: DefaultTextStyle.of(context).style,
+                  children: <TextSpan>[
+                    TextSpan(text: 'Fecha de Incio: ', style: TextStyle(fontWeight: FontWeight.bold)),
+                    TextSpan(text: fecha),
+                  ],
+                ),
+              ),
+              RichText(
+                text: TextSpan(
+                  style: DefaultTextStyle.of(context).style,
+                  children: <TextSpan>[
+                    TextSpan(text: 'Hora de Incio: ', style: TextStyle(fontWeight: FontWeight.bold)),
+                    TextSpan(text: hora),
+                  ],
+                ),
+              ),
+              RichText(
+                text: TextSpan(
+                  style: DefaultTextStyle.of(context).style,
+                  children: <TextSpan>[
+                    TextSpan(text: 'Dirección: ', style: TextStyle(fontWeight: FontWeight.bold)),
+                    TextSpan(text: lugar),
+                  ],
+                ),
+              ),
+              RichText(
+                text: TextSpan(
+                  style: DefaultTextStyle.of(context).style,
+                  children: <TextSpan>[
+                    TextSpan(text: 'Cupo total: ', style: TextStyle(fontWeight: FontWeight.bold)),
+                    TextSpan(text: cupo),
+                  ],
+                ),
+              ),
               Expanded(
                 flex: 1,
                 child: SizedBox(height: 0),
@@ -145,7 +197,7 @@ class DesktopEventCard extends StatelessWidget {
                   onPressed: () {
                     final snackBar = SnackBar(
                       content: Text('Se ha registrado al evento $titulo!'),
-                      backgroundColor: (const Color.fromARGB(116, 8, 4, 71)),
+                      backgroundColor: (Theme.of(context).colorScheme.onPrimaryContainer),
                       action: SnackBarAction(
                         label: 'De acuerdo',
                         onPressed: () {

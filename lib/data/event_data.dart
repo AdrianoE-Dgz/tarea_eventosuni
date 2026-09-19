@@ -21,12 +21,12 @@ const List<Map<String, String>> eventos = [
     'imagen':'https://picsum.photos/seed/flutter-basic/600/400',
   },
   {
-    'titulo': 'Evento02',
+    'titulo': 'Carrera de Nado Individual',
     'categoria': 'Deportivos',
-    'fecha': '',
-    'hora': '',
-    'lugar': '',
-    'cupo': '',
+    'fecha': '20/10/2026',
+    'hora': '14:00',
+    'lugar': 'Álberca Olímpica Norte',
+    'cupo': '15',
     'imagen':'https://picsum.photos/seed/flutter-basic/600/400',
   },
   {

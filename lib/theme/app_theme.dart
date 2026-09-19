@@ -6,7 +6,8 @@ class AppTheme {
 
   static ThemeData get lightTheme{
     final colorScheme = ColorScheme.fromSeed(
-      seedColor: Colors.indigo,);
+      seedColor: Colors.teal
+    );
     
     return ThemeData(
       colorScheme: colorScheme,
@@ -25,7 +26,7 @@ class AppTheme {
 
         headlineLarge: TextStyle(
           fontWeight: FontWeight.w900,
-          fontSize: 25
+          fontSize: 25,
         )
       ),
     );

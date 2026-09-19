@@ -36,21 +36,25 @@ class _HomePageState extends State<HomePage> {
     final Orientation orientation = MediaQuery.of(context).orientation;
     final Size size = MediaQuery.of(context).size;
 
+    int _cantEventos = _listEventos.length;
+
     int countItem = 1;
-    double eventHeight = 400;
+    double eventHeight = 475;
     double space = size.width;
 
     if (orientation == Orientation.landscape || space > 800.0) {
       countItem = 2;
-      eventHeight = 250;
+      eventHeight = 300;
     }
 
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Theme.of(context).colorScheme.onPrimaryContainer,
         title: Text(
           'Eventos Universitarios',
-          style: Theme.of(context).textTheme.headlineLarge,
-        )
+          style: Theme.of(context).textTheme.headlineLarge!
+              .copyWith(color: Colors.white),
+        ),
       ),
       body: ListView(
         padding: const EdgeInsets.all(16),
@@ -69,8 +73,8 @@ class _HomePageState extends State<HomePage> {
 
           const SizedBox(height: 22),
 
-          AspectRatio(
-            aspectRatio: 16 / 1,
+          SizedBox(
+            height: 125,
             child: ClipRRect(
               borderRadius: BorderRadius.circular(20),
               child: Stack(
@@ -118,7 +122,7 @@ class _HomePageState extends State<HomePage> {
             children: [
               Text('Categorias', style: Theme.of(context).textTheme.titleLarge),
 
-              const Text('Explorar'),
+              Text('Eventos: $_cantEventos'),
             ],
           ),
 
@@ -165,7 +169,7 @@ class _HomePageState extends State<HomePage> {
 
             itemBuilder: (context, index) {
               final evento = _listEventos[index];
-              
+
               return EventCard(
                 titulo: evento['titulo'] as String,
                 categoria: evento['categoria'] as String,
