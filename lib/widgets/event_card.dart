@@ -88,7 +88,12 @@ class MobileEventCard extends StatelessWidget {
         Text("Dirección: $lugar"),
         Text("Cupo total: $cupo"),
         SizedBox(height: 15),
-        Image.network(imagen),
+        Image.network(
+            imagen,
+            height: 200,
+            width: double.infinity,
+            fit: BoxFit.fitWidth,
+          ),
         SizedBox(height: 15),
         Center(
           child: ElevatedButton(
@@ -150,9 +155,8 @@ class DesktopEventCard extends StatelessWidget {
             children: [
               Text(
                 titulo,
-                style: TextStyle(fontSize: 25, fontWeight: FontWeight(1000)),
+                style: TextStyle(fontSize: 25, fontWeight: FontWeight(1000), color: Theme.of(context).colorScheme.primary),
               ),
-              Text(categoria),
               RichText(
                 text: TextSpan(
                   style: DefaultTextStyle.of(context).style,
@@ -215,12 +219,31 @@ class DesktopEventCard extends StatelessWidget {
         ),
         Expanded(
           flex: 2,
-          child: Image.network(
-            imagen,
-            height: double.infinity,
-            width: width,
-            fit: BoxFit.fitWidth,
-          ),
+          child: ClipRRect(
+              borderRadius: BorderRadius.circular(20),
+              child: Stack(
+                fit: StackFit.expand,
+                children: [
+                  Image.network(
+                    imagen,
+                    height: double.infinity,
+                    width: width,
+                    fit: BoxFit.fitWidth,
+                  ),
+
+                  Positioned(
+                    right: 0,
+                    top: 18,
+                    child: Chip(
+                      label: Text(categoria, style: Theme.of(context).textTheme.titleSmall!
+                        .copyWith(color: Theme.of(context).colorScheme.onPrimary)),
+                      backgroundColor: Theme.of(context).colorScheme.primary,
+                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.only(topLeft: Radius.circular(20),bottomLeft: Radius.circular(20)), side: BorderSide(width: 0, color: Theme.of(context).colorScheme.primary)),
+                    )
+                  ),
+                ],
+              ),
+            ),
         ),
       ],
     );

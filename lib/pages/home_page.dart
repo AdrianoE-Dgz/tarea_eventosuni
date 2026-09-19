@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:tarea_eventosuni/widgets/event_card.dart';
 import 'package:tarea_eventosuni/data/event_data.dart';
 import 'package:tarea_eventosuni/widgets/category_chip.dart';
+import 'package:tarea_eventosuni/classes/pair.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -36,7 +37,7 @@ class _HomePageState extends State<HomePage> {
     final Orientation orientation = MediaQuery.of(context).orientation;
     final Size size = MediaQuery.of(context).size;
 
-    int _cantEventos = _listEventos.length;
+    int cantEventos = _listEventos.length;
 
     int countItem = 1;
     double eventHeight = 475;
@@ -60,58 +61,8 @@ class _HomePageState extends State<HomePage> {
         padding: const EdgeInsets.all(16),
         children: [
           Text(
-            'Hola estudiante',
-            style: Theme.of(context).textTheme.headlineSmall,
-          ),
-
-          SizedBox(height: 4),
-
-          Text(
-            'Que quieres aprender',
-            style: Theme.of(context).textTheme.bodyLarge,
-          ),
-
-          const SizedBox(height: 22),
-
-          SizedBox(
-            height: 125,
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(20),
-              child: Stack(
-                fit: StackFit.expand,
-                children: [
-                  Image.network(
-                    'https://fotografias.lasexta.com/clipping/cmsimages02/2023/06/12/2D1E1A88-3CCB-4EF5-BFAC-65A34B6706F3/fondos-pantalla-clasicos-windows-calidad_98.jpg?crop=1300,731,x0,y0&width=1900&height=1069&optimize=high&format=webply',
-                    fit: BoxFit.cover,
-                  ),
-
-                  const DecoratedBox(
-                    decoration: BoxDecoration(
-                      gradient: LinearGradient(
-                        begin: Alignment.topCenter,
-                        end: Alignment.bottomCenter,
-                        colors: [Colors.transparent, Colors.black87],
-                      ),
-                    ),
-                  ),
-
-                  const Positioned(
-                    left: 20,
-                    right: 20,
-                    bottom: 18,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'Aprende algo nuevo hoy...',
-                          style: TextStyle(color: Colors.white, fontSize: 22),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            ),
+            'Explora la variedad de eventos que esta universidad ofrece para tí',
+            style: Theme.of(context).textTheme.titleLarge,
           ),
 
           const SizedBox(height: 24),
@@ -122,7 +73,7 @@ class _HomePageState extends State<HomePage> {
             children: [
               Text('Categorias', style: Theme.of(context).textTheme.titleLarge),
 
-              Text('Eventos: $_cantEventos'),
+              Text('Eventos: $cantEventos'),
             ],
           ),
 
@@ -140,11 +91,12 @@ class _HomePageState extends State<HomePage> {
               itemBuilder: (context, index) {
                 final categoria = categorias[index];
                 return CategoryChip(
-                  label: categoria,
-                  selected: _categoriaSeleccionada == categoria,
+                  label: categoria.a,
+                  icon: categoria.b,
+                  selected: _categoriaSeleccionada == categoria.a,
                   onTap: () {
                     setState(() {
-                      _categoriaSeleccionada = categoria;
+                      _categoriaSeleccionada = categoria.a;
                     });
 
                     _listEventos = _obtenerEventos();

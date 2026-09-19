@@ -20,6 +20,11 @@ class AppTheme {
           fontWeight: FontWeight.bold,
         ),
 
+        titleSmall: TextStyle(
+          fontWeight: FontWeight.bold,
+          fontStyle: FontStyle.italic,
+        ),
+
         titleLarge: TextStyle(
           fontWeight: FontWeight.w700,
         ),
