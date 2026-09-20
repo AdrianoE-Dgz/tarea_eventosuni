@@ -81,12 +81,56 @@ class MobileEventCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Text(titulo),
-        Text(categoria),
-        Text("Fecha de Incio: $fecha"),
-        Text("Hora de inicio: $hora"),
-        Text("Dirección: $lugar"),
-        Text("Cupo total: $cupo"),
+        Positioned(
+                    right: 0,
+                    top: 18,
+                    child: Chip(
+                      label: Text(categoria, style: Theme.of(context).textTheme.titleSmall!
+                        .copyWith(color: Theme.of(context).colorScheme.onPrimary)),
+                      backgroundColor: Theme.of(context).colorScheme.primary,
+                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.only(topLeft: Radius.circular(20),bottomLeft: Radius.circular(20)), side: BorderSide(width: 0, color: Theme.of(context).colorScheme.primary)),
+                    )
+                  ),
+        Text(
+                titulo,
+                style: TextStyle(fontSize: 25, fontWeight: FontWeight(1000), color: Theme.of(context).colorScheme.primary),
+              ),
+              RichText(
+                text: TextSpan(
+                  style: DefaultTextStyle.of(context).style,
+                  children: <TextSpan>[
+                    TextSpan(text: 'Fecha de Incio: ', style: TextStyle(fontWeight: FontWeight.bold)),
+                    TextSpan(text: fecha),
+                  ],
+                ),
+              ),
+              RichText(
+                text: TextSpan(
+                  style: DefaultTextStyle.of(context).style,
+                  children: <TextSpan>[
+                    TextSpan(text: 'Hora de Incio: ', style: TextStyle(fontWeight: FontWeight.bold)),
+                    TextSpan(text: hora),
+                  ],
+                ),
+              ),
+              RichText(
+                text: TextSpan(
+                  style: DefaultTextStyle.of(context).style,
+                  children: <TextSpan>[
+                    TextSpan(text: 'Dirección: ', style: TextStyle(fontWeight: FontWeight.bold)),
+                    TextSpan(text: lugar),
+                  ],
+                ),
+              ),
+              RichText(
+                text: TextSpan(
+                  style: DefaultTextStyle.of(context).style,
+                  children: <TextSpan>[
+                    TextSpan(text: 'Cupo total: ', style: TextStyle(fontWeight: FontWeight.bold)),
+                    TextSpan(text: cupo),
+                  ],
+                ),
+              ),
         SizedBox(height: 15),
         Image.network(
             imagen,
