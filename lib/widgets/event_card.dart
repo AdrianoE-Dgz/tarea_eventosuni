@@ -79,84 +79,95 @@ class MobileEventCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
+    return Stack(
+      fit: StackFit.expand,
       children: [
         Positioned(
-                    right: 0,
-                    top: 18,
-                    child: Chip(
-                      label: Text(categoria, style: Theme.of(context).textTheme.titleSmall!
-                        .copyWith(color: Theme.of(context).colorScheme.onPrimary)),
-                      backgroundColor: Theme.of(context).colorScheme.primary,
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.only(topLeft: Radius.circular(20),bottomLeft: Radius.circular(20)), side: BorderSide(width: 0, color: Theme.of(context).colorScheme.primary)),
-                    )
+          right: 0,
+          top: 0,
+          child: Chip(
+            label: Text(categoria, style: Theme.of(context).textTheme.titleSmall!
+              .copyWith(color: Theme.of(context).colorScheme.onPrimary)),
+            backgroundColor: Theme.of(context).colorScheme.primary,
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.only(topLeft: Radius.circular(20),bottomLeft: Radius.circular(20)), side: BorderSide(width: 0, color: Theme.of(context).colorScheme.primary)),
+          )
+        ),
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            SizedBox(height: 50,),
+            Text(
+              titulo,
+              style: TextStyle(fontSize: 25, fontWeight: FontWeight(1000), color: Theme.of(context).colorScheme.primary),
+            ),
+            RichText(
+              text: TextSpan(
+              style: DefaultTextStyle.of(context).style,
+                      children: <TextSpan>[
+                        TextSpan(text: 'Fecha de Incio: ', style: TextStyle(fontWeight: FontWeight.bold)),
+                        TextSpan(text: fecha),
+                      ],
+                    ),
                   ),
-        Text(
-                titulo,
-                style: TextStyle(fontSize: 25, fontWeight: FontWeight(1000), color: Theme.of(context).colorScheme.primary),
+                  RichText(
+                    text: TextSpan(
+                      style: DefaultTextStyle.of(context).style,
+                      children: <TextSpan>[
+                        TextSpan(text: 'Hora de Incio: ', style: TextStyle(fontWeight: FontWeight.bold)),
+                        TextSpan(text: hora),
+                      ],
+                    ),
+                  ),
+                  RichText(
+                    text: TextSpan(
+                      style: DefaultTextStyle.of(context).style,
+                      children: <TextSpan>[
+                        TextSpan(text: 'Dirección: ', style: TextStyle(fontWeight: FontWeight.bold)),
+                        TextSpan(text: lugar),
+                      ],
+                    ),
+                  ),
+                  RichText(
+                    text: TextSpan(
+                      style: DefaultTextStyle.of(context).style,
+                      children: <TextSpan>[
+                        TextSpan(text: 'Cupo total: ', style: TextStyle(fontWeight: FontWeight.bold)),
+                        TextSpan(text: cupo),
+                      ],
+                    ),
+                  ),
+            SizedBox(height: 15),
+            ClipRRect(
+              clipBehavior: Clip.antiAlias,
+              borderRadius: BorderRadius.circular(20),
+              child: Image.network(
+                imagen,
+                height: 200,
+                width: double.infinity,
+                fit: BoxFit.fitWidth,
               ),
-              RichText(
-                text: TextSpan(
-                  style: DefaultTextStyle.of(context).style,
-                  children: <TextSpan>[
-                    TextSpan(text: 'Fecha de Incio: ', style: TextStyle(fontWeight: FontWeight.bold)),
-                    TextSpan(text: fecha),
-                  ],
-                ),
-              ),
-              RichText(
-                text: TextSpan(
-                  style: DefaultTextStyle.of(context).style,
-                  children: <TextSpan>[
-                    TextSpan(text: 'Hora de Incio: ', style: TextStyle(fontWeight: FontWeight.bold)),
-                    TextSpan(text: hora),
-                  ],
-                ),
-              ),
-              RichText(
-                text: TextSpan(
-                  style: DefaultTextStyle.of(context).style,
-                  children: <TextSpan>[
-                    TextSpan(text: 'Dirección: ', style: TextStyle(fontWeight: FontWeight.bold)),
-                    TextSpan(text: lugar),
-                  ],
-                ),
-              ),
-              RichText(
-                text: TextSpan(
-                  style: DefaultTextStyle.of(context).style,
-                  children: <TextSpan>[
-                    TextSpan(text: 'Cupo total: ', style: TextStyle(fontWeight: FontWeight.bold)),
-                    TextSpan(text: cupo),
-                  ],
-                ),
-              ),
-        SizedBox(height: 15),
-        Image.network(
-            imagen,
-            height: 200,
-            width: double.infinity,
-            fit: BoxFit.fitWidth,
-          ),
-        SizedBox(height: 15),
-        Center(
-          child: ElevatedButton(
-                  onPressed: () {
-                    final snackBar = SnackBar(
-                      content: Text('Se ha registrado al evento $titulo!'),
-                      backgroundColor: Theme.of(context).colorScheme.onPrimaryContainer,
-                      action: SnackBarAction(
-                        label: 'De acuerdo',
-                        onPressed: () {
-                        },
+            ),
+            SizedBox(height: 15),
+            Center(
+              child: ElevatedButton(
+                      onPressed: () {
+                        final snackBar = SnackBar(
+                          content: Text('Se ha registrado al evento $titulo!'),
+                          backgroundColor: Theme.of(context).colorScheme.onPrimaryContainer,
+                          action: SnackBarAction(
+                            label: 'De acuerdo',
+                            onPressed: () {
+                            },
+                          ),
+                        );
+                        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                      },
+                      child: const Text(
+                        'Registrarme',
                       ),
-                    );
-                    ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                  },
-                  child: const Text(
-                    'Registrarme',
-                  ),
-                ),
+                    ),
+            )
+          ],
         )
       ],
     );

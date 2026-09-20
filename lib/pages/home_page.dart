@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:tarea_eventosuni/widgets/event_card.dart';
 import 'package:tarea_eventosuni/data/event_data.dart';
 import 'package:tarea_eventosuni/widgets/category_chip.dart';
-import 'package:tarea_eventosuni/classes/pair.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -40,7 +39,7 @@ class _HomePageState extends State<HomePage> {
     int cantEventos = _listEventos.length;
 
     int countItem = 1;
-    double eventHeight = 475;
+    double eventHeight = 575;
     double space = size.width;
 
     if (orientation == Orientation.landscape || space > 800.0) {
